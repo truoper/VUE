@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Список дел</title>
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <div id="app" class="container mt-4">
+    <h1>Список дел</h1>
+    
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Введите новую задачу" v-model="newTask">
+      <button class="btn btn-primary" @click="addTask">Добавить</button>
+    </div>
+    
+    <ul class="list-group">
+      <li v-for="(task, index) in tasks" :key="index" class="list-group-item d-flex justify-content-between">
+        {{ task }}
+        <button class="btn btn-danger" @click="removeTask(index)">Удалить</button>
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.prod.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          newTask: '',
+          tasks: []
+        };
+      },
+      methods: {
+        addTask() {
+          if (this.newTask) {
+            this.tasks.push(this.newTask);
+            this.newTask = '';
+          }
+        },
+        removeTask(index) {
+          this.tasks.splice(index, 1);
+        }
+      }
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
